@@ -109,4 +109,26 @@ const updateDetails = async (req, res) => {
     }
 }
 
-export {registerUser, loginUser, fetchDetails, updateDetails};
+const uploadImage = async (req, res) => {
+    const {id} = req.params;
+    let image_name = `${req.file.filename}`;
+
+    try {
+        const updatedUser = await UserModel.findByIdAndUpdate(
+            id,
+            {dp: image_name},
+            {new: true}
+        )
+
+        if (!updatedUser) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+
+        res.json({ success: true, data: updatedUser });
+    } catch (error) {
+        console.error("Error updating User details:", error);
+        res.status(500).json({ success: false, message: "Error uploading image" });
+    }
+}
+
+export {registerUser, loginUser, fetchDetails, updateDetails, uploadImage};

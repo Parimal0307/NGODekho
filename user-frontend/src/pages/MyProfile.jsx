@@ -11,7 +11,7 @@ const MyProfile = () => {
 
   return (
     <div>
-      {showEditDetails && <EditDetails setShowEditDetails={setShowEditDetails}/>}
+      {showEditDetails && <EditDetails setShowEditDetails={setShowEditDetails} userDetails={userDetails}/>}
       {showUpdateImage && <UpdateImage setShowUpdateImage={setShowUpdateImage} dp={userDetails.dp}/>}
       <h1 className='text-3xl font-bold'>My Profile</h1>
       <h3 className='text-2xl font-semibold text-gray-500'>Welcome, {!userDetails.username?"User":userDetails.username}!</h3>
