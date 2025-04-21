@@ -8,6 +8,7 @@ const UserContextProvider = (props) => {
     const [token, setToken] = useState("");
     const [userId, setUserId] = useState("");
     const [ngoList, setNgoList] = useState([]);
+    const [userDetails, setUserDetails] = useState({});
     const [showLogin, setShowLogin] = useState(false);
 
     const fetchNgoList = async () => {
@@ -15,13 +16,27 @@ const UserContextProvider = (props) => {
         setNgoList(response.data.data);
     }
 
+    const fetchUserDetails = async (id) => {
+        try {
+          const response = await axios.get(`${url}/api/user/fetchDetails/${id}`);
+          setUserDetails(response.data.data); // Use response.data
+        //   console.log(response.data.data);
+        } catch (err) {
+          console.error("Error fetching user details:", err);
+        }
+      };
+
     useEffect(()=>{
         fetchNgoList();
 
-        if(localStorage.getItem('token')){
-            setToken(localStorage.getItem('token'));
-            setUserId(localStorage.getItem('userId'));
-        }        
+        const storedToken = localStorage.getItem("token");
+        const storedUserId = localStorage.getItem("userId");
+
+        if (storedToken && storedUserId) {
+            setToken(storedToken);
+            setUserId(storedUserId);
+            fetchUserDetails(storedUserId); // Pass directly here
+        }       
     },[])
     
     const contextValue = {
@@ -29,6 +44,7 @@ const UserContextProvider = (props) => {
         token, setToken,
         userId, setUserId,
         ngoList,
+        userDetails,
         showLogin ,setShowLogin
         // saveState, setSaveState
     }

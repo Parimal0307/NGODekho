@@ -70,4 +70,43 @@ const loginUser = async (req, res) => {
     }
 }
 
-export {registerUser, loginUser};
+const fetchDetails = async (req, res) =>{
+    const { id } = req.params;
+
+    try {
+        const userDetails = await UserModel.findById(id); // Corrected this line
+
+        if (!userDetails) {
+            return res.json({ success: false, message: "User not found" });
+        }
+
+        res.json({ success: true, data: userDetails });
+    } catch (error) {
+        console.error("Error fetching details:", error);
+        res.json({ success: false, message: "Error retrieving User details" });
+    }
+}
+
+const updateDetails = async (req, res) => {
+    const {id} = req.params;
+    const fieldsToUpdate = req.body;
+
+    try {
+        const updatedUser = await UserModel.findByIdAndUpdate(
+            id,
+            { $set: fieldsToUpdate },
+            { new: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+
+        res.json({ success: true, data: updatedUser });
+    } catch (error) {
+        console.error("Error updating user details:", error);
+        res.status(500).json({ success: false, message: "Error updating details" });
+    }
+}
+
+export {registerUser, loginUser, fetchDetails, updateDetails};

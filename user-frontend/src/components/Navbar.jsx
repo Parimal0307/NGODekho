@@ -19,7 +19,7 @@ const Navbar = ({setShowLogin}) => {
             <i class="fi fi-rr-search text-white cursor-pointer"></i>
         </div>
         {
-          token?<img src={user} alt="user_icon" className='w-13 h-13 rounded-full object-cover border-3 border-white'/>
+          token?<img src={user} onClick={()=>navigate('/profile')} alt="user_icon" className='w-13 h-13 rounded-full object-cover border-3 border-white cursor-pointer'/>
           :<p className='text-white text-2xl cursor-pointer' onClick={()=>setShowLogin(true)}>Log In</p>
         }
     </div>
