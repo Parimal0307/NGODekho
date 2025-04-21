@@ -9,8 +9,10 @@ A full-stack web application that connects NGOs with individuals who want to con
 * Admin panel (optional/future enhancement)
 
 ## 🏗️ Project Structure
-├── backend/ # Node.js/Express backend API 
-├── ngo-frontend/ # Frontend for NGOs to manage their profiles and services ├── user-frontend/ # Frontend for users to explore and connect with NGOs  
+<!-- ├── backend/ # Node.js/Express backend API 
+├── ngo-frontend/ # Frontend for NGOs to manage their profiles and services 
+├── user-frontend/ # Frontend for users to explore and connect with NGOs   -->
+<pre> ``` ├── backend/ # Node.js/Express backend API ├── ngo-frontend/ # Frontend for NGOs to manage their profiles and services ├── user-frontend/ # Frontend for users to explore and connect with NGOs ``` </pre>
 
 ## 🚀 Getting Started
 
