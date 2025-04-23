@@ -12,10 +12,11 @@ A full-stack web application that connects NGOs with individuals who want to con
 <!-- ├── backend/ # Node.js/Express backend API 
 ├── ngo-frontend/ # Frontend for NGOs to manage their profiles and services 
 ├── user-frontend/ # Frontend for users to explore and connect with NGOs   -->
-<pre> ``` 
+<pre>
 ├── backend/ # Node.js/Express backend API 
 ├── ngo-frontend/ # Frontend for NGOs to manage their profiles and services 
-├── user-frontend/ # Frontend for users to explore and connect with NGOs ``` </pre>
+└── user-frontend/ # Frontend for users to explore and connect with NGOs
+</pre>
 
 ## 🚀 Getting Started
 

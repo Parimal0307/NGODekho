@@ -1,5 +1,5 @@
 import express from 'express'
-import { registerUser, loginUser, fetchDetails, updateDetails, uploadImage } from '../controllers/userController.js';
+import { registerUser, loginUser, fetchDetails, updateDetails, uploadImage, volunteerRequests, saveNgo } from '../controllers/userController.js';
 import multer from 'multer'
 
 const userRouter = express.Router();
@@ -20,5 +20,7 @@ userRouter.post("/login", loginUser);
 userRouter.get("/fetchDetails/:id", fetchDetails);
 userRouter.put("/updateDetails/:id", updateDetails);
 userRouter.put("/uploadImage/:id", upload.single('image'), uploadImage);
+userRouter.get("/volunteerRequests/:id", volunteerRequests);
+userRouter.post("/saveNgo/:id", saveNgo);
 
 export default userRouter;

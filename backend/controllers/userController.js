@@ -2,6 +2,7 @@ import UserModel from "../models/userModel.js";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import validator from 'validator';
+import VolunteerRequestModel from "../models/VolunteerRequestModel.js";
 
 // creating json token
 const createToken = (id) => {
@@ -131,4 +132,39 @@ const uploadImage = async (req, res) => {
     }
 }
 
-export {registerUser, loginUser, fetchDetails, updateDetails, uploadImage};
+const volunteerRequests = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const requests = await VolunteerRequestModel.find({userId:id})
+            .populate("ngoId", "name location ngoImage") 
+            .sort({ appliedOn: -1 });
+
+        res.json({ success: true, data: requests });
+    } catch (err) {
+        console.error("Error fetching volunteer requests:", err);
+        res.status(500).json({ success: false, message: "Failed to fetch volunteer requests" });
+    }
+}
+
+const saveNgo = async (req, res) => {
+    const { id } = req.params;
+    const { ngoId } = req.body;
+
+    try {
+        const user = await UserModel.findById(id);
+        if (!user) return res.status(404).json({ message: "User not found" });
+
+        if (!user.savedNGOs.includes(ngoId)) {
+            user.savedNGOs.push(ngoId);
+            await user.save();
+        }
+
+        res.json({ success: true, message: "NGO saved successfully" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, message: "Something went wrong" });
+    }
+}
+
+export {registerUser, loginUser, fetchDetails, updateDetails, uploadImage, volunteerRequests, saveNgo};
