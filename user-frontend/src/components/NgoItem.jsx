@@ -2,12 +2,35 @@ import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import defaultImg from '../assets/default.jpg'
 import { UserContext } from './UserContext'
+import axios from 'axios'
 
 const NgoItem = ({ id, name, category, location, mission, volNeeded, rating, reviews, image }) => {
 
-  const { url } = useContext(UserContext);
+  const { url, userId, userDetails } = useContext(UserContext);
   const [saveState, setSaveState] = useState('save');
   const navigate = useNavigate();
+  const [savedNgos, setSavedNgos] = useState(userDetails.savedNGOs);
+
+  const handleSaveToggle = async (ngoId) => {
+    const isSaved = savedNgos.includes(ngoId);
+
+    try {
+      if (isSaved) {
+        const res = await axios.post(`${url}/api/user/unsaveNgo/${userId}`, { ngoId });
+        if (res.data.success) {
+          setSavedNgos(prev => prev.filter(id => id !== ngoId));
+        }
+      } else {
+        const res = await axios.post(`${url}/api/user/saveNgo/${userId}`, { ngoId });
+        if (res.data.success) {
+          setSavedNgos(prev => [...prev, ngoId]);
+        }
+      }
+    } catch (error) {
+      alert("Error toggling save");
+      console.error("Error toggling save:", error);
+    }
+  };
 
   return (
     <div className='bg-white shadow-lg rounded-2xl p-8 flex items-center gap-6 w-full'>
@@ -19,14 +42,16 @@ const NgoItem = ({ id, name, category, location, mission, volNeeded, rating, rev
         {volNeeded ? <p className="mt-2 font-semibold">Volunteers Needed</p> : <></>}
         <p className="text-gray-600 text-sm mt-2 font-medium">Rating: {rating}/5 ({reviews} reviews)</p>
         <div className='flex gap-4 mt-4'>
-          <div className='flex gap-1 cursor-pointer hover:text-gray-700' onClick={() => {
-            saveState === 'save' ? setSaveState('unsave') : setSaveState('save');
-          }}>
+          <div
+            className='flex gap-1 cursor-pointer hover:text-gray-700'
+            onClick={() => handleSaveToggle(id)}
+          >
             {
-              saveState === 'save' ? <i class="fi fi-rs-bookmark mt-0.5"></i> :
-                <i class="fi fi-ss-bookmark mt-0.5"></i>
+              savedNgos.includes(id)
+                ? <i className="fi fi-ss-bookmark mt-0.5"></i> // Filled Bookmark
+                : <i className="fi fi-rs-bookmark mt-0.5"></i> // Regular Bookmark
             }
-            <p>{saveState}</p>
+            <p>{savedNgos.includes(id) ? "Saved" : "Save"}</p>
           </div>
           <div className='flex gap-1 cursor-pointer hover:text-gray-700' onClick={() => {
             navigate(`/ngo-detail/${id}`),

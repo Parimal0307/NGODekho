@@ -6,7 +6,7 @@ const LoginPopup = ({setShowLogin}) => {
     const [currState, setCurrState] = useState("Log In");
     const {url, setToken, setUserId} = useContext(UserContext);
     const [data, setData] = useState({
-        name:"",
+        username:"",
         email:"",
         password:""
       })
@@ -58,7 +58,7 @@ const LoginPopup = ({setShowLogin}) => {
                 currState==="Sign Up"?<input 
                 type="text" 
                 placeholder='name' 
-                name='name'
+                name='username'
                 onChange={onChangeHandler}
                 required
                 className='w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'/>:<></>

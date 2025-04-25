@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema({
     location: { type: String },                       
     phone: { type: String },                          
     dp: { type: String }, 
-    savedNGOs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ngo' }]
+    savedNGOs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ngo', default: [] }]
 });
 
 const UserModel = mongoose.model("user", UserSchema);

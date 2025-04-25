@@ -11,7 +11,7 @@ const createToken = (id) => {
 
 // register user
 const registerUser = async (req, res) => {
-    const {name, email, password} = req.body;
+    const {username, email, password} = req.body;
 
     try {
         // checking if the user already exists
@@ -34,7 +34,7 @@ const registerUser = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, salt)
 
         // creating user
-        const newUser = new UserModel({name, email, password:hashedPassword});
+        const newUser = new UserModel({username, email, password:hashedPassword});
         const user = await newUser.save();
 
         // generating token
@@ -149,13 +149,13 @@ const volunteerRequests = async (req, res) => {
 
 const saveNgo = async (req, res) => {
     const { id } = req.params;
-    const { ngoId } = req.body;
+    const {ngoId} = req.body;
 
     try {
         const user = await UserModel.findById(id);
         if (!user) return res.status(404).json({ message: "User not found" });
 
-        if (!user.savedNGOs.includes(ngoId)) {
+        if (!user.savedNGOs.some(id => id.equals(ngoId))) {
             user.savedNGOs.push(ngoId);
             await user.save();
         }
@@ -167,4 +167,36 @@ const saveNgo = async (req, res) => {
     }
 }
 
-export {registerUser, loginUser, fetchDetails, updateDetails, uploadImage, volunteerRequests, saveNgo};
+const unsaveNgo = async (req, res) => {
+    const { id } = req.params;
+    const { ngoId } = req.body;
+
+    try {
+        const user = await UserModel.findById(id);
+        if (!user) return res.status(404).json({ message: "User not found" });
+
+        user.savedNGOs = user.savedNGOs.filter(savedId => savedId.toString() !== ngoId);
+        await user.save();
+
+        res.json({ success: true, message: "NGO unsaved successfully" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, message: "Something went wrong" });
+    }
+}
+
+const savedNgos = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const user = await UserModel.findById(id).populate("savedNGOs", "name location ngoImage category");
+        if (!user) return res.status(404).json({ success: false, message: "User not found" });
+
+        res.json({ success: true, data: user.savedNGOs });
+    } catch (error) {
+        console.error("Error fetching saved NGOs:", error);
+        res.status(500).json({ success: false, message: "Failed to fetch saved NGOs" });
+    }
+}
+
+export {registerUser, loginUser, fetchDetails, updateDetails, uploadImage, volunteerRequests, saveNgo, unsaveNgo, savedNgos};
