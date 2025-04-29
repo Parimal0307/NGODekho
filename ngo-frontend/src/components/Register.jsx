@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const Register = () => {
     const navigate = useNavigate();
-    const {url, setToken} = useContext(NewContext);
+    const {url, setToken, setNgoId} = useContext(NewContext);
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -28,7 +28,9 @@ const Register = () => {
             const response = await axios.post(`${url}/api/ngo/register`, formData);
             if(response.data.success){
                 setToken(response.data.token);
-                localStorage.setItem('token',response.data.token);
+                setNgoId(response.data.id);
+                localStorage.setItem('ngoToken',response.data.token);
+                localStorage.setItem('ngoId',response.data.id);
                 console.log("User registered, check db");
                 navigate(`/home/${response.data.id}`);
             }else{

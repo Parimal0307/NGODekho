@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const Login = () => {
   const navigate = useNavigate();
-  const {url, setToken} = useContext(NewContext);
+  const {url, setToken, setNgoId} = useContext(NewContext);
   const [data, setData] = useState({
     email:"",
     password:""
@@ -23,7 +23,9 @@ const Login = () => {
       const response = await axios.post(`${url}/api/ngo/login`, data);
       if(response.data.success){
         setToken(response.data.token);
-        localStorage.setItem('token',response.data.token);
+        setNgoId(response.data.id);
+        localStorage.setItem('ngoToken',response.data.token);
+        localStorage.setItem('ngoId',response.data.id);
         navigate(`/home/${response.data.id}`);
       }else{
         console.log(response.data.message);

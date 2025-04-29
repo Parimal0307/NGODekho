@@ -1,25 +1,8 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { UserContext } from '../components/UserContext';
-import axios from 'axios';
 
 const MyApplications = () => {
-  const [ngoRequests, setNgoRequests] = useState([]);
-  const { url, userId } = useContext(UserContext);
-
-  useEffect(() => {
-    const fetchVolunteerRequests = async () => {
-      try {
-        const res = await axios.get(`${url}/api/user/volunteerRequests/${userId}`);
-        if (res.data.success) {
-          setNgoRequests(res.data.data);
-        }
-      } catch (err) {
-        console.error("Error fetching NGOs:", err);
-      }
-    };
-
-    fetchVolunteerRequests();
-  }, []);
+  const { url, ngoRequests } = useContext(UserContext);
 
   return (
     <div>

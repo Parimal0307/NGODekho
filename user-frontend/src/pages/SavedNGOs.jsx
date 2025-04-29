@@ -1,28 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import { UserContext } from '../components/UserContext';
-import axios from 'axios';
 import defaultImg from "../assets/default.jpg"
 
 const SavedNGOs = () => {
-  const [savedNgos, setSavedNgos] = useState([]);
-  const { url, userId } = useContext(UserContext);
-
-  useEffect(() => {
-    const fetchSavedNgos = async () => {
-      try {
-        const res = await axios.get(`${url}/api/user/savedNgos/${userId}`);
-        if (res.data.success) {
-          setSavedNgos(res.data.data); // this is an array of NGO objects
-        }
-      } catch (error) {
-        console.error("Failed to fetch saved NGOs:", error);
-      }
-    };
-
-    fetchSavedNgos();
-  }, []);
-
-  
+  const { url, savedNgos } = useContext(UserContext);
 
   return (
     <div>

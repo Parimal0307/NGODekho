@@ -9,7 +9,7 @@ const NgoItem = ({ id, name, category, location, mission, volNeeded, rating, rev
   const { url, userId, userDetails } = useContext(UserContext);
   const [saveState, setSaveState] = useState('save');
   const navigate = useNavigate();
-  const [savedNgos, setSavedNgos] = useState(userDetails.savedNGOs);
+  const [savedNgos, setSavedNgos] = useState(userDetails.savedNGOs || []);
 
   const handleSaveToggle = async (ngoId) => {
     const isSaved = savedNgos.includes(ngoId);

@@ -10,23 +10,46 @@ const UserContextProvider = (props) => {
     const [ngoList, setNgoList] = useState([]);
     const [userDetails, setUserDetails] = useState({});
     const [showLogin, setShowLogin] = useState(false);
+    const [savedNgos, setSavedNgos] = useState([]);
+    const [ngoRequests, setNgoRequests] = useState([]);
 
     const fetchNgoList = async () => {
-        const response = await axios.get(url+'/api/ngo/list');
+        const response = await axios.get(url + '/api/ngo/list');
         setNgoList(response.data.data);
     }
 
     const fetchUserDetails = async (id) => {
         try {
-          const response = await axios.get(`${url}/api/user/fetchDetails/${id}`);
-          setUserDetails(response.data.data); // Use response.data
-        //   console.log(response.data.data);
+            const response = await axios.get(`${url}/api/user/fetchDetails/${id}`);
+            setUserDetails(response.data.data); // Use response.data
         } catch (err) {
-          console.error("Error fetching user details:", err);
+            console.error("Error fetching user details:", err);
+        }
+    };
+
+    const fetchSavedNgos = async () => {
+        try {
+            const res = await axios.get(`${url}/api/user/savedNgos/${userId}`);
+            if (res.data.success) {
+                setSavedNgos(res.data.data); // this is an array of NGO objects
+            }
+        } catch (error) {
+            console.error("Failed to fetch saved NGOs:", error);
+        }
+    };
+
+    const fetchVolunteerRequests = async () => {
+        try {
+          const res = await axios.get(`${url}/api/user/volunteerRequests/${userId}`);
+          if (res.data.success) {
+            setNgoRequests(res.data.data);
+          }
+        } catch (err) {
+          console.error("Error fetching NGOs:", err);
         }
       };
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchNgoList();
 
         const storedToken = localStorage.getItem("token");
@@ -36,19 +59,26 @@ const UserContextProvider = (props) => {
             setToken(storedToken);
             setUserId(storedUserId);
             fetchUserDetails(storedUserId); // Pass directly here
-        }       
-    },[])
-    
+        }
+    }, [])
+
+    useEffect(() => {
+        if (!userId) return; // ✅ Wait until userId is loaded from localStorag
+
+        fetchSavedNgos();
+        fetchVolunteerRequests();
+      }, [userId]); 
+
     const contextValue = {
         url,
         token, setToken,
         userId, setUserId,
         ngoList,
         userDetails,
-        showLogin ,setShowLogin
-        // saveState, setSaveState
+        showLogin, setShowLogin,
+        savedNgos, ngoRequests
     }
-    
+
     return (
         <UserContext.Provider value={contextValue}>
             {props.children}
