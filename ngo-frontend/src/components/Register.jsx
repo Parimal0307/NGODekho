@@ -45,7 +45,7 @@ const Register = () => {
     <div className='h-[100%]] flex flex-col gap-10 bg-[#F8F8F8]'>
         <div className='pt-4 flex flex-col items-center justify-center gap-10'>
             <div>
-                <h1 className='text-6xl font-bold'>NGODekho</h1>
+                <h1 className='text-6xl font-bold'>NobleConnect</h1>
             </div>
             <form onSubmit={handleSubmit} className='flex flex-col gap-4 bg-white rounded-xl p-6 shadow-lg w-80 md:w-96'>
                 <div className='flex flex-col gap-3'>
@@ -121,7 +121,7 @@ const Register = () => {
             <span className="cursor-pointer hover:underline">Privacy Policy</span>
             <span className="cursor-pointer hover:underline">Terms & Conditions</span>
             </div>
-            <p className="mt-2">NGODekho © 2025 All Rights Reserved</p>
+            <p className="mt-2">NobleConnect © 2025 All Rights Reserved</p>
         </div>
     </div>
   )

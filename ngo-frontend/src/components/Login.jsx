@@ -39,7 +39,7 @@ const Login = () => {
     <div className='h-screen bg-[#F8F8F8]'>
         <div className='h-[85%] flex flex-col items-center justify-center gap-10 md:flex-row  md:justify-around'>
             <div>
-                <h1 className='text-6xl font-bold'>NGODekho</h1>
+                <h1 className='text-6xl font-bold'>NobleConnect</h1>
                 <h3 className='text-2xl text-gray-700'>Connecting Changemakers,</h3>
                 <h3 className='text-2xl text-gray-700'>Empowering Communities.</h3>
             </div>
@@ -86,7 +86,7 @@ const Login = () => {
           <span className="cursor-pointer hover:underline">Privacy Policy</span>
           <span className="cursor-pointer hover:underline">Terms & Conditions</span>
         </div>
-        <p className="mt-2">NGODekho © 2025 All Rights Reserved</p>
+        <p className="mt-2">NobleConnect © 2025 All Rights Reserved</p>
       </div>
     </div>
   )

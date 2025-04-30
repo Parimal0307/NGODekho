@@ -10,7 +10,7 @@ const Navbar = ({setShowLogin}) => {
 
   return (
     <div className='bg-black w-full flex justify-between items-center px-12 py-4'>
-        <h1 className='text-4xl text-white font-bold cursor-pointer' onClick={()=>navigate('/')}>NGODekho</h1>
+        <h1 className='text-4xl text-white font-bold cursor-pointer' onClick={()=>navigate('/')}>NobleConnect</h1>
         <div className='flex items-center justify-between border w-[35%] border-white rounded-full px-7 py-1'>
             <input 
                 className='placeholder-white w-[90%] focus:outline-none text-white' 

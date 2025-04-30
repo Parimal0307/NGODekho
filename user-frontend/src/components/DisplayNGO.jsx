@@ -7,7 +7,6 @@ import { UserContext } from './UserContext.jsx'
 const DisplayNGO = () => {
 
   const {ngoList} = useContext(UserContext);
-  // console.log(ngoList);
   
   return (
     <div className='md:w-[75%] p-8 grid grid-cols-[repeat(auto-fill,minmax(450px,1fr))] gap-x-6 gap-y-6'>

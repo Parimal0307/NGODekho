@@ -12,7 +12,7 @@ const Footer = () => {
         <p className='text-xs'>About</p>
         <p className='text-xs'>Privacy Policy</p>
         <p className='text-xs'>Terms & Conditions</p>
-        <p className='text-xs'><span className='font-bold'>NGODekho</span> © 2025 | All Rights Reserved</p>
+        <p className='text-xs'><span className='font-bold'>NobleConnect</span> © 2025 | All Rights Reserved</p>
     </div>
   )
 }
