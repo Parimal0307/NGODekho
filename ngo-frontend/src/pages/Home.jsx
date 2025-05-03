@@ -3,6 +3,7 @@ import { useParams, Outlet, NavLink, useNavigate } from 'react-router-dom'
 import Footer from '../components/Footer';
 import { NewContext } from '../components/NewContext';
 import Logout from '../components/Logout';
+import { toast } from 'react-toastify';
 
 const Home = () => {
   const { id } = useParams();
@@ -18,6 +19,7 @@ const Home = () => {
     setNgoId("");      // Clear context/id
 
     navigate("/");     // Redirect to login
+    toast.success("Logged Out");
   }
 
   return (

@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import axios from 'axios';
+import {toast} from 'react-toastify'
 
 const UploadGallery = ({setshowUploadGallery, setGallery, id, url}) => {
 
@@ -31,14 +32,13 @@ const UploadGallery = ({setshowUploadGallery, setGallery, id, url}) => {
         });
   
         if (response.data.success) {
-          alert("Images uploaded successfully!");
+          toast.success("Images uploaded successfully!");
           console.log(selectedFiles);
           setSelectedFiles([]);
           setPreviewImages([]);
         }
       } catch (error) {
-        console.error("Error uploading images:", error);
-        alert("Failed to upload images.");
+        toast.error("Error uploading images");
       }
     };
     

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { UserContext } from './UserContext'
 import axios from 'axios'
+import {toast} from 'react-toastify'
 
 const LoginPopup = ({setShowLogin}) => {
     const [currState, setCurrState] = useState("Log In");
@@ -34,11 +35,15 @@ const LoginPopup = ({setShowLogin}) => {
           localStorage.setItem('userId', response.data.userId);
           localStorage.setItem('token',response.data.token);
           setShowLogin(false);
+
+          toast.success(response.data.message || `${currState} successful`);
       }else{
-        console.log(response.data.message);
+        // console.log(response.data.message);
+        toast.error(response.data.message || `Failed to ${currState.toLowerCase()}`);
       }
       } catch (error) {
-        alert(error);
+        // alert(error);
+        toast.error(error.response?.data?.message || 'Something went wrong!');
       }
     }
 

@@ -28,7 +28,7 @@ const Filters = ({ ngoList, onFilter }) => {
     };
 
     return (
-        <div className='hidden md:flex md:w-[40%] lg:w-[25%] flex-col gap-5 px-12 py-8'>
+        <div className='hidden md:flex md:w-[30%] lg:w-[20%] flex-col gap-5 px-12 py-8'>
             {/* Filter by category */}
             <div>
                 <h4 className='text-base lg:text-xl font-semibold'>Types of service</h4>

@@ -67,7 +67,7 @@ const Requests = ({id}) => {
               key={req._id}
               className="grid grid-cols-[2fr_3fr_3fr_1fr_1fr_1fr] items-center text-sm text-gray-800 px-4 py-3 border border-gray-300 rounded-md shadow-sm"
             >
-              <div>{req.userId?.name}</div>
+              <div >{req.userId?.username }</div>
               <div className="text-blue-600 underline">{req.userId?.email}</div>
               <div className="font-medium">{req.appliedFor}</div>
               <div

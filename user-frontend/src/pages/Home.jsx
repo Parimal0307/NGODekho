@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import Navbar from '../components/Navbar'
 import LoginPopup from '../components/LoginPopup';
 import Filters from '../components/Filters';
@@ -9,6 +9,7 @@ import Carousel from '../components/Carousel';
 const Home = () => {
   const { showLogin, setShowLogin, ngoList } = useContext(UserContext);
   const [filteredNgos, setFilteredNgos] = useState([]);
+  const ngoListRef = useRef(null);
 
   useEffect(() => {
     setFilteredNgos(ngoList);
@@ -22,16 +23,17 @@ const Home = () => {
       return matchCategory && matchCity;
     });
     setFilteredNgos(filtered);
+    ngoListRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <div className='bg-[#F8F8F8]'>
+    <div className='bg-[#F8F8F8] '>
       <Navbar setShowLogin={setShowLogin} />
       <Carousel />
       {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : <></>}
 
     
-      <div className='flex'>
+      <div ref={ngoListRef} className='flex'>
         <Filters ngoList={ngoList} onFilter={handleFilter} />
         <DisplayNGO ngoList={filteredNgos} />
       </div>

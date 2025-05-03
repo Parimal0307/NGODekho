@@ -120,7 +120,7 @@ const updateDetails = async (req, res) => {
             return res.status(404).json({ success: false, message: "NGO not found" });
         }
 
-        res.json({ success: true, data: updatedNgo });
+        res.json({ success: true, data: updatedNgo, message:"Details updated" });
     } catch (error) {
         console.error("Error updating NGO details:", error);
         res.status(500).json({ success: false, message: "Error updating details" });
@@ -143,7 +143,7 @@ const uploadImage = async (req, res) => {
             return res.status(404).json({ success: false, message: "NGO not found" });
         }
 
-        res.json({ success: true, data: updatedNgo });
+        res.json({ success: true, data: updatedNgo, message:"Image uploaded" });
     } catch (error) {
         console.error("Error updating NGO details:", error);
         res.status(500).json({ success: false, message: "Error uploading image" });
@@ -166,7 +166,7 @@ const uploadGallery = async (req, res) => {
             return res.status(404).json({ success: false, message: "NGO not found" });
         }
 
-        res.json({ success: true, data: updatedNgo });
+        res.json({ success: true, data: updatedNgo, message:"Gallery uploaded" });
     } catch (error) {
         console.error("Error updating NGO gallery:", error);
         res.status(500).json({ success: false, message: "Error uploading images" });
@@ -179,7 +179,7 @@ const showRequests = async (req, res) => {
 
     try {
         const requests = await VolunteerRequestModel.find({ ngoId })
-        .populate('userId', 'name email')
+        .populate('userId', 'username email')
         .sort({ appliedOn: -1 });
 
         res.json({ success: true, data: requests });

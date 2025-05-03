@@ -5,10 +5,12 @@ import Register from './components/Register'
 import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
 import Profile from './pages/Profile'
+import { ToastContainer } from 'react-toastify';
 
 const App = () => {
   return (
     <div>
+      <ToastContainer/>
       <Routes>
         <Route path='/' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>

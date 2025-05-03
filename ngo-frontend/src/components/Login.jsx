@@ -2,6 +2,7 @@ import React, {useContext, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { NewContext } from './NewContext';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -27,11 +28,13 @@ const Login = () => {
         localStorage.setItem('ngoToken',response.data.token);
         localStorage.setItem('ngoId',response.data.id);
         navigate(`/home/${response.data.id}`);
+
+        toast.success(response.data.message);
       }else{
-        console.log(response.data.message);
+        toast.error(response.data.message);
       }
     } catch (error) {
-      alert(error);
+      toast.error("Some error occured");
     }
     }
 

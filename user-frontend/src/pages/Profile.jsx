@@ -4,6 +4,7 @@ import user from "../assets/user.png"
 import Footer from "../components/Footer"
 import { UserContext } from '../components/UserContext'
 import Logout from '../components/Logout'
+import { toast } from 'react-toastify'
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ const Profile = () => {
         setUserId("");      // Clear context/id
 
         navigate("/");     // Redirect to login
+        toast.success("Logged Out!!");
     }
 
     return (

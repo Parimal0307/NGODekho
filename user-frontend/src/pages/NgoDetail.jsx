@@ -92,7 +92,7 @@ const NgoDetail = () => {
           <div className='flex gap-2 items-center justify-between'>
             <h1 className='text-3xl font-bold'>Our Programs</h1>
             {
-              details.volunteers_needed && <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 cursor-pointer" onClick={()=>setShowApply(true)}>Volunteer Now</button>
+              <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 cursor-pointer" onClick={()=>setShowApply(true)}>Volunteer Now</button>
             }
           </div>
           <div className="mt-4 bg-white p-6 shadow rounded-lg">

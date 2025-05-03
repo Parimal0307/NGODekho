@@ -2,6 +2,7 @@ import React, {useState, useContext} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { NewContext } from './NewContext';
 import axios from 'axios';
+import {toast} from 'react-toastify'
 
 const Register = () => {
     const navigate = useNavigate();
@@ -33,11 +34,13 @@ const Register = () => {
                 localStorage.setItem('ngoId',response.data.id);
                 console.log("User registered, check db");
                 navigate(`/home/${response.data.id}`);
+
+                toast.success(response.data.message);
             }else{
-                console.log(response.data.message);
+                toast.error(response.data.message);
             }
         } catch (error) {
-            alert(error);
+            toast.error("Some error occured");
         }
     }
 

@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {toast} from 'react-toastify'
 import axios from 'axios';
 
 const UploadImage = ({setshowUploadImage, setNgoImage, id, url}) => {
@@ -27,15 +28,14 @@ const UploadImage = ({setshowUploadImage, setNgoImage, id, url}) => {
             const response = await axios.put(`${url}/api/ngo/uploadimage/${id}`, formData, {headers: { "Content-Type": "multipart/form-data" }});
 
             if (response.data.success) {
-                alert("Image uploaded successfully!");
+                toast.success("Image uploaded successfully!");
                 setNgoImage(response.data.data.ngoImage);
                 setSelectedFile(null);
                 setPreviewImage(null);
-                setshowUploadImage(false)
+                setshowUploadImage(false);
             }
         } catch (error) {
-            console.error("Error uploading image:", error);
-            alert("Failed to upload image.");
+            toast.error("Error uploading image");
         }
     };
     

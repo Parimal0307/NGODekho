@@ -9,6 +9,7 @@ import { NewContext } from '../components/NewContext';
 import { useParams } from 'react-router-dom'
 import default_img from '../assets/default.jpg'
 import axios from 'axios';
+import {toast} from 'react-toastify';
 
 const Profile = () => {
   const [showEditDetails, setShowEditDetails] = useState(false);
@@ -82,10 +83,12 @@ const Profile = () => {
     try {
       const response = await axios.put(url+"/api/ngo/updatedetails/"+id, sectionData);
       if (response.data.success) {
-        alert("Updated successfully!");
+        toast.success(response.data.message);
+      }else{
+        toast.error(response.data.message);
       }
     } catch (error) {
-      console.log("Error updating data");
+      toast.error("Error updating data");
     }
   };
 

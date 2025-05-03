@@ -6,13 +6,14 @@ import Profile from './pages/Profile';
 import MyProfile from './pages/MyProfile';
 import MyApplications from './pages/MyApplications';
 import SavedNGOs from './pages/SavedNGOs';
+import { ToastContainer } from 'react-toastify';
 
 const App = () => {
   
 
   return (
     <div>
-
+      <ToastContainer/>
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/ngo-detail/:id' element={<NgoDetail/>}/>

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import axios from 'axios'
 import { UserContext } from './UserContext'
+import { toast } from 'react-toastify'
 
 const EditDetails = ({setShowEditDetails, userDetails}) => {
   const {url, userId} = useContext(UserContext);
@@ -15,14 +16,15 @@ const EditDetails = ({setShowEditDetails, userDetails}) => {
     setDetails({ ...details, [name]: value });
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    // e.preventDefault();
     try {
       const response = await axios.put(`${url}/api/user/updateDetails/${userId}`, details);
       if (response.data.success) {
-        alert("Updated successfully!");
+        toast.success("Updated successfully!");
       }
     } catch (error) {
-      console.log("Error updating data");
+      toast.error("Error updating data");
     }
   }
 

@@ -6,7 +6,7 @@ const apply = async (req, res) => {
 
     try {
       const ngo = await ngoModel.findById(ngoId);
-      if (!ngo || !ngo.volunteers_needed) {
+      if (!ngo) {
         return res.status(400).json({ success: false, message: 'This NGO is not accepting volunteers.' });
       }
   
